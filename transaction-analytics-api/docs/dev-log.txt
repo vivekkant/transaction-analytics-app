@@ -4,15 +4,15 @@ Feature List for Transaction Analytics API Application
 ---------------------------------------------------------------------------------
 |			Features					|				Status					|
 ---------------------------------------------------------------------------------
-|	1. Transaction Analysis				|	In progress							|
+|	1. Transaction Analysis				|	Completed							|
 |	1.1 List of all transactions		|	Completed							|
-|	1.2 Filter by date					|	Completed									|
+|	1.2 Filter by date					|	Completed							|
 |	1.3	Transaciton details				|	Completed							|
-|	2. Category Analysis				|	In progress							|
+|	2. Category Analysis				|	Completed							|
 |	2.1 Category aggregate				|	Completed							|
-|	2.2 CA Filter by date				|										|
+|	2.2 CA Filter by date				|	Completed							|
 |	2.3 Sub-category aggregate			|	Completed							|
-|	2.4 SCA Filter by date				|										|
+|	2.4 SCA Filter by date				|	Complated							|
 |	3. Account Analysis					|										|
 |	3.1 Account aggregate				|										|
 |	3.2 AA Filter by date				|										|
@@ -31,5 +31,8 @@ Feature List for Transaction Analytics API Application
 
 02-June-2015
 ------------
-* Completed filter by date
+* Completed filter by date for:
+*	Transacitons
+* 	Category Analysis
+* 	Sub-category Analysis
 

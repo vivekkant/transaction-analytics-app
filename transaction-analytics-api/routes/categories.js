@@ -6,12 +6,25 @@ var Transaction = require('../models/Transaction.js');
 
 /* GET /categories listing. */
 router.get('/', function(req, res, next) {
-  Transaction.aggregate([{ $group: { _id: '$category',
+
+  var _query = { $group: { _id: '$category',
                                      withdrawl: {$sum: '$withdrawl'}, 
                                      deposit: {$sum: '$deposit'}
-                                   } 
-                        }],
-    function(err, categories) {
+                          } 
+                };
+
+  var _condition = null;
+  if( req.query.from && req.query.to ) {
+    _condition = { $match: { tranDate : { $gte: new Date(req.query.from), $lte: new Date(req.query.to) } } };
+  } else if( req.query.from ) {
+    _condition = { $match: { tranDate : { $gte: new Date(req.query.from) } } };
+  } else if ( req.query.to ) {
+    _condition = { $match: { tranDate : { $lte: new Date(req.query.to) } } };
+  }
+
+  var _aggregate = (_condition) ? [_condition, _query] : [_query]; 
+
+  var _callback = function(err, categories) {
       if (err) return next(err);
       // Reformat the response to substitute _id with category
       var _categories = [];
@@ -23,18 +36,33 @@ router.get('/', function(req, res, next) {
         _categories[i] = _category;
       }
       res.json(_categories);
-    });
+  };
+
+  Transaction.aggregate( _aggregate, _callback );
 });
 
 /* GET /categories/:category */
 router.get('/:category', function(req, res, next) {
-    Transaction.aggregate([{ $match: { category: req.params.category} },
-                           { $group: { _id: '$subCategory',
+    var _query = { $group: { _id: '$subCategory',
                                      withdrawl: {$sum: '$withdrawl'}, 
                                      deposit: {$sum: '$deposit'}
                                      } 
-                          }],
-    function(err, category) {
+                  };
+
+    var _filter = { $match: { category: req.params.category} };
+
+    var _condition = null;
+    if( req.query.from && req.query.to ) {
+      _condition = { $match: { tranDate : { $gte: new Date(req.query.from), $lte: new Date(req.query.to) } } };
+    } else if( req.query.from ) {
+      _condition = { $match: { tranDate : { $gte: new Date(req.query.from) } } };
+    } else if ( req.query.to ) {
+      _condition = { $match: { tranDate : { $lte: new Date(req.query.to) } } };
+    }
+
+    var _aggregate = (_condition) ? [_condition, _filter, _query] : [_filter, _query]; 
+
+    var _callback = function(err, category) {
       if (err) return next(err);
       // Reformat the response remove default _id and add category & subcategory
       var _category = [];
@@ -47,7 +75,9 @@ router.get('/:category', function(req, res, next) {
         _category[i] = _subCategory;
       }
       res.json(_category);
-    });
+    };
+
+    Transaction.aggregate(_aggregate, _callback);
 });
 
 /* GET /categories/:category/:subCategory */
