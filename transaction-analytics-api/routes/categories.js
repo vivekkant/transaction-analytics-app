@@ -13,7 +13,16 @@ router.get('/', function(req, res, next) {
                         }],
     function(err, categories) {
       if (err) return next(err);
-      res.json(categories);
+      // Reformat the response to substitute _id with category
+      var _categories = [];
+      for (var i = 0; i < categories.length; i++) {
+        var _category = {};
+        _category.category = categories[i]._id;
+        _category.withdrawl = categories[i].withdrawl;
+        _category.deposit = categories[i].deposit;
+        _categories[i] = _category;
+      }
+      res.json(_categories);
     });
 });
 
@@ -27,7 +36,17 @@ router.get('/:category', function(req, res, next) {
                           }],
     function(err, category) {
       if (err) return next(err);
-      res.json(category);
+      // Reformat the response remove default _id and add category & subcategory
+      var _category = [];
+      for (var i = 0; i < category.length; i++) {
+        var _subCategory = {};
+        _subCategory.category = req.params.category;
+        _subCategory.subCategory = category[i]._id;
+        _subCategory.withdrawl = category[i].withdrawl;
+        _subCategory.deposit = category[i].deposit;
+        _category[i] = _subCategory;
+      }
+      res.json(_category);
     });
 });
 

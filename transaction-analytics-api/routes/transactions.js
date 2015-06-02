@@ -6,10 +6,23 @@ var Transaction = require('../models/Transaction.js');
 
 /* GET /transactions listing. */
 router.get('/', function(req, res, next) {
-  Transaction.find(function (err, transactions) {
+  var _condition = {};
+  if( req.query.from && req.query.to ) {
+    _condition = { tranDate : { $gte: new Date(req.query.from), $lte: new Date(req.query.to) } };
+  } else if( req.query.from ) {
+    _condition = { tranDate : { $gte: new Date(req.query.from) } };
+  } else if ( req.query.to ) {
+    _condition = { tranDate : { $lte: new Date(req.query.to) } };
+  }
+
+  var _orderby = { sort : { tranDate: 1} };
+
+  var _callback = function (err, transactions) {
     if (err) return next(err);
     res.json(transactions);
-  });
+  }
+
+  Transaction.find(_condition, null, _orderby, _callback);
 });
 
 /* POST /transactions */

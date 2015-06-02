@@ -1,0 +1,35 @@
+Feature List for Transaction Analytics API Application
+------------------------------------------------------
+
+---------------------------------------------------------------------------------
+|			Features					|				Status					|
+---------------------------------------------------------------------------------
+|	1. Transaction Analysis				|	In progress							|
+|	1.1 List of all transactions		|	Completed							|
+|	1.2 Filter by date					|	Completed									|
+|	1.3	Transaciton details				|	Completed							|
+|	2. Category Analysis				|	In progress							|
+|	2.1 Category aggregate				|	Completed							|
+|	2.2 CA Filter by date				|										|
+|	2.3 Sub-category aggregate			|	Completed							|
+|	2.4 SCA Filter by date				|										|
+|	3. Account Analysis					|										|
+|	3.1 Account aggregate				|										|
+|	3.2 AA Filter by date				|										|
+|	4. Month wise Analysis				|										|
+|	4.1 Month wise category Analysis	|										|
+|	4.2 Selection of Month				|										|
+|	4.3 Month wise sub-category analysis|										|
+---------------------------------------------------------------------------------
+
+01-June-2015
+------------
+* Regression testing and baseline
+* Completed and tested list of transactions
+* Completed and tested category aggregate
+* Completed and tested sub category aggregate
+
+02-June-2015
+------------
+* Completed filter by date
+
