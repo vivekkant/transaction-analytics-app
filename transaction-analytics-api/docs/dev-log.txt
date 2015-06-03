@@ -13,13 +13,13 @@ Feature List for Transaction Analytics API Application
 |	2.2 CA Filter by date				|	Completed							|
 |	2.3 Sub-category aggregate			|	Completed							|
 |	2.4 SCA Filter by date				|	Complated							|
-|	3. Account Analysis					|										|
-|	3.1 Account aggregate				|										|
-|	3.2 AA Filter by date				|										|
-|	4. Month wise Analysis				|										|
-|	4.1 Month wise category Analysis	|										|
-|	4.2 Selection of Month				|										|
-|	4.3 Month wise sub-category analysis|										|
+|	3. Account Analysis					|	Completed							|
+|	3.1 Account aggregate				|	Completed							|
+|	3.2 AA Filter by date				|	Completed							|
+|	4. Month wise Analysis				|	Completed							|
+|	4.1 Month wise category Analysis	|	Completed							|
+|	4.2 Selection of Year / Month		|	Completed							|
+|	4.3 Month wise sub-category analysis|	Completed							|
 ---------------------------------------------------------------------------------
 
 01-June-2015
@@ -35,4 +35,11 @@ Feature List for Transaction Analytics API Application
 *	Transacitons
 * 	Category Analysis
 * 	Sub-category Analysis
+
+03-June-2015
+------------
+* Completed account wise analysis
+* Completed account filter by date for account analysis
+* Completed month wise category & subcategory analysis
+* Completed month & year selection
 

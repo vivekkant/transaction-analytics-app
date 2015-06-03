@@ -33,6 +33,7 @@ router.get('/', function(req, res, next) {
         _category.category = categories[i]._id;
         _category.withdrawl = categories[i].withdrawl;
         _category.deposit = categories[i].deposit;
+        _category.total = _category.deposit - _category.withdrawl;
         _categories[i] = _category;
       }
       res.json(_categories);
@@ -72,6 +73,7 @@ router.get('/:category', function(req, res, next) {
         _subCategory.subCategory = category[i]._id;
         _subCategory.withdrawl = category[i].withdrawl;
         _subCategory.deposit = category[i].deposit;
+        _subCategory.total = _subCategory.deposit - _subCategory.withdrawl;
         _category[i] = _subCategory;
       }
       res.json(_category);
@@ -82,11 +84,33 @@ router.get('/:category', function(req, res, next) {
 
 /* GET /categories/:category/:subCategory */
 router.get('/:category/:subCategory', function(req, res, next) {
-    Transaction.find({ category: req.params.category, subCategory: req.params.subCategory }, 
-      function(err, transactions) {
-        if (err) return next(err);
-        res.json(transactions);
-    });
+
+  var _condition = { category: req.params.category, subCategory: req.params.subCategory };
+  if ( req.query.from && req.query.to ) {
+    _condition = { category: req.params.category, 
+                   subCategory: req.params.subCategory, 
+                   tranDate : { $gte: new Date(req.query.from), $lte: new Date(req.query.to) } 
+                 };
+  } else if( req.query.from ) {
+    _condition = { category: req.params.category, 
+                   subCategory: req.params.subCategory, 
+                   tranDate : { $gte: new Date(req.query.from) } 
+                 };
+  } else if ( req.query.to ) {
+    _condition = { category: req.params.category, 
+                   subCategory: req.params.subCategory, 
+                   tranDate : { $lte: new Date(req.query.to) } 
+                 };
+  }
+
+  var _orderby = { sort : { tranDate: 1} };
+
+  var _callback = function (err, transactions) {
+    if (err) return next(err);
+    res.json(transactions);
+  }
+
+  Transaction.find(_condition, null, _orderby, _callback);
 });
 
 

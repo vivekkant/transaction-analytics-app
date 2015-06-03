@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var transactions = require('./routes/transactions');
 var categories = require('./routes/categories');
+var accounts = require('./routes/accounts');
+var aggregates = require('./routes/aggregates');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/transactionAnalytics', function(err) {
@@ -35,6 +37,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/transactions', transactions);
 app.use('/categories', categories);
+app.use('/accounts', accounts);
+app.use('/aggregates', aggregates);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
